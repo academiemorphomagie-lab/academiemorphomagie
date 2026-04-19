@@ -1,0 +1,602 @@
+@import "tailwindcss" source("../");
+
+:root {
+  --encre: #0d0a07;
+  --parchemin: #f2e8d5;
+  --parchemin2: #e8d9bc;
+  --or: #c9a84c;
+  --or-vif: #f0c060;
+  --rubis: #8b1a1a;
+  --saphir: #1a3a5c;
+  --emeraude: #1a4a2e;
+  --violet: #3d1c5a;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--encre);
+  color: var(--parchemin);
+  font-family: 'IM Fell English', serif;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── Lang Switch ── */
+.lang-switch {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 200;
+  display: flex;
+  gap: 8px;
+}
+.lang-btn {
+  background: rgba(201, 168, 76, 0.1);
+  border: 1px solid var(--or);
+  color: var(--or);
+  padding: 5px 14px;
+  cursor: pointer;
+  font-family: 'Cinzel', serif;
+  font-size: 0.85em;
+  border-radius: 4px;
+  transition: 0.2s;
+}
+.lang-btn.active,
+.lang-btn:hover {
+  background: var(--or);
+  color: var(--encre);
+}
+
+/* ── Stars ── */
+#stars {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  animation: twinkle var(--dur, 3s) ease-in-out infinite alternate;
+  opacity: 0;
+}
+@keyframes twinkle {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  100% {
+    opacity: var(--op, 0.7);
+    transform: scale(1.2);
+  }
+}
+
+/* ── Runes ── */
+.rune {
+  position: absolute;
+  font-size: 1.4em;
+  color: var(--or);
+  opacity: 0;
+  animation: floatRune var(--dur, 8s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  pointer-events: none;
+  user-select: none;
+}
+@keyframes floatRune {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) rotate(0deg);
+  }
+  30% {
+    opacity: 0.25;
+  }
+  70% {
+    opacity: 0.15;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-40px) rotate(20deg);
+  }
+}
+
+/* ── Hero ── */
+.hero {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 20px 80px;
+  background: radial-gradient(
+      ellipse 70% 60% at 50% 30%,
+      rgba(61, 28, 90, 0.55) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 50% 40% at 80% 80%,
+      rgba(139, 26, 26, 0.2) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 40% 30% at 20% 80%,
+      rgba(26, 58, 92, 0.3) 0%,
+      transparent 60%
+    );
+}
+.sigil {
+  font-family: 'Uncial Antiqua', serif;
+  font-size: clamp(3em, 8vw, 6em);
+  color: var(--or-vif);
+  letter-spacing: 0.05em;
+  line-height: 1.1;
+  text-shadow: 0 0 30px rgba(240, 192, 96, 0.5),
+    0 0 80px rgba(240, 192, 96, 0.2), 3px 3px 0 rgba(0, 0, 0, 0.5);
+  animation: apparition 1.4s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+@keyframes apparition {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.9);
+    filter: blur(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+.hero-subtitle {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.8em, 2.5vw, 1.05em);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--or);
+  margin: 12px 0 24px;
+  animation: apparition 1.4s 0.2s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+.hero-divider {
+  width: 220px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--or), transparent);
+  margin: 0 auto 24px;
+  animation: apparition 1.4s 0.35s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+.hero-desc {
+  max-width: 580px;
+  font-size: clamp(0.95em, 2.5vw, 1.15em);
+  font-style: italic;
+  color: var(--parchemin2);
+  margin: 0 auto 40px;
+  animation: apparition 1.4s 0.5s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+.scroll-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.7em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--or);
+  opacity: 0.6;
+  animation: bounce 2s ease-in-out infinite;
+}
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(8px);
+  }
+}
+
+/* ── Layout ── */
+section {
+  position: relative;
+  z-index: 1;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 70px 30px;
+}
+h2 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(1.6em, 4vw, 2.5em);
+  color: var(--or-vif);
+  line-height: 1.2;
+  margin-bottom: 26px;
+  text-shadow: 0 0 20px rgba(240, 192, 96, 0.2);
+}
+h3 {
+  font-family: 'Cinzel', serif;
+  color: var(--or-vif);
+  font-size: 1.15em;
+  margin-bottom: 10px;
+  letter-spacing: 0.04em;
+}
+p {
+  color: var(--parchemin2);
+  font-size: 1.15em;
+}
+strong {
+  color: var(--or-vif);
+  font-style: normal;
+}
+.section-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72em;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--or);
+  margin-bottom: 12px;
+  opacity: 0.8;
+}
+.gold-rule {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--or) 30%,
+    var(--or) 70%,
+    transparent
+  );
+  margin-bottom: 46px;
+  opacity: 0.4;
+}
+
+/* ── Philosophy ── */
+.philo-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+@media (max-width: 680px) {
+  .philo-block {
+    grid-template-columns: 1fr;
+  }
+}
+.philo-text p {
+  margin-bottom: 16px;
+}
+.badge-cua {
+  background: rgba(201, 168, 76, 0.05);
+  border: 1px dashed rgba(201, 168, 76, 0.5);
+  padding: 24px;
+  border-radius: 6px;
+  line-height: 1.6;
+}
+
+/* ── Magic Circle ── */
+.magic-circle-section {
+  text-align: center;
+}
+.circle-caption {
+  margin-top: 18px;
+  font-style: italic;
+  color: var(--parchemin2);
+  font-size: 1em;
+  opacity: 0.75;
+}
+
+/* ── Program Cards ── */
+.program-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+.program-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  padding: 26px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+.program-card:hover {
+  border-color: var(--or);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+.program-card.featured-card {
+  border-color: var(--or);
+  background: rgba(201, 168, 76, 0.04);
+}
+.status-tag {
+  display: inline-block;
+  font-family: 'Cinzel', serif;
+  font-size: 0.68em;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ── Tarifs ── */
+.tarif-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+.tarif-card {
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  padding: 38px 30px;
+  text-align: center;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+}
+.tarif-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+.tarif-card.featured {
+  border-color: var(--or-vif);
+  background: rgba(201, 168, 76, 0.06);
+  box-shadow: 0 0 30px rgba(201, 168, 76, 0.1);
+}
+.tarif-subtitle {
+  font-style: italic;
+  font-size: 0.9em;
+  color: rgba(242, 232, 213, 0.6);
+  margin-bottom: 20px;
+}
+.price {
+  font-family: 'Cinzel', serif;
+  font-size: 3em;
+  color: var(--or-vif);
+  margin: 14px 0;
+  text-shadow: 0 0 20px rgba(240, 192, 96, 0.3);
+}
+.price sup {
+  font-size: 0.4em;
+  vertical-align: super;
+}
+.tarif-list {
+  list-style: none;
+  text-align: left;
+  margin-top: 18px;
+  font-size: 0.92em;
+}
+.tarif-list li {
+  padding: 5px 0 5px 18px;
+  position: relative;
+  color: var(--parchemin2);
+}
+.tarif-list li::before {
+  content: '\2726';
+  position: absolute;
+  left: 0;
+  color: var(--or);
+  font-size: 0.65em;
+  top: 9px;
+}
+
+/* ── Pioneer ── */
+.pioneer-box {
+  background: linear-gradient(
+    135deg,
+    rgba(26, 58, 92, 0.2),
+    rgba(61, 28, 90, 0.2)
+  );
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  border-radius: 6px;
+  padding: 32px 36px;
+  margin-top: 44px;
+}
+.pioneer-box::before {
+  content: '\2726 Cohorte des Pionniers \2726';
+  display: block;
+  font-family: 'Cinzel', serif;
+  font-size: 0.7em;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--or);
+  margin-bottom: 12px;
+}
+.pioneer-box p {
+  font-style: italic;
+  font-size: 1.05em;
+}
+
+/* ── CTA ── */
+.cta-section {
+  text-align: center;
+  padding: 70px 20px 100px;
+}
+.cta-btn {
+  display: inline-block;
+  padding: 18px 50px;
+  background: linear-gradient(135deg, #c9a84c, #f0c060, #c9a84c);
+  background-size: 200% 100%;
+  color: var(--encre);
+  text-decoration: none;
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 1.05em;
+  letter-spacing: 0.1em;
+  border-radius: 50px;
+  box-shadow: 0 0 30px rgba(201, 168, 76, 0.4),
+    0 8px 25px rgba(0, 0, 0, 0.4);
+  transition: 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+.cta-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  transform: translateX(-100%);
+  transition: 0.6s;
+}
+.cta-btn:hover {
+  transform: scale(1.06);
+  background-position: 100% 0;
+  box-shadow: 0 0 50px rgba(201, 168, 76, 0.6);
+}
+.cta-btn:hover::after {
+  transform: translateX(100%);
+}
+.cta-note {
+  margin-top: 18px;
+  font-size: 0.85em;
+  font-style: italic;
+  color: rgba(242, 232, 213, 0.4);
+}
+
+/* ── Founders ── */
+.founders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-top: 10px;
+}
+.founder-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  border-radius: 8px;
+  padding: 28px 24px;
+  text-align: center;
+  transition: 0.3s;
+}
+.founder-card:hover {
+  border-color: var(--or);
+  transform: translateY(-4px);
+}
+.founder-avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2em;
+  border: 2px solid rgba(201, 168, 76, 0.4);
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(201, 168, 76, 0.2),
+    rgba(61, 28, 90, 0.3)
+  );
+}
+.founder-name {
+  font-family: 'Cinzel', serif;
+  color: var(--or-vif);
+  font-size: 1em;
+  margin-bottom: 6px;
+}
+.founder-role {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--or);
+  opacity: 0.75;
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
+.founder-card p {
+  font-size: 0.95em;
+  font-style: italic;
+}
+
+/* ── Ateliers ── */
+.ateliers-box {
+  background: linear-gradient(
+    135deg,
+    rgba(26, 74, 46, 0.2),
+    rgba(13, 10, 7, 0.4)
+  );
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  border-radius: 8px;
+  padding: 36px 40px;
+  margin-top: 10px;
+}
+.ateliers-box .atelier-list {
+  list-style: none;
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+.ateliers-box .atelier-list li {
+  padding: 10px 14px 10px 28px;
+  position: relative;
+  color: var(--parchemin2);
+  font-size: 0.98em;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 4px;
+  border: 1px solid rgba(201, 168, 76, 0.1);
+}
+.ateliers-box .atelier-list li::before {
+  content: '\2726';
+  position: absolute;
+  left: 10px;
+  color: var(--or);
+  font-size: 0.65em;
+  top: 13px;
+}
+.atelier-note {
+  margin-top: 20px;
+  font-style: italic;
+  font-size: 0.9em;
+  color: rgba(201, 168, 76, 0.7);
+  text-align: center;
+}
+
+/* ── Footer ── */
+footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 36px 20px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.75em;
+  letter-spacing: 0.18em;
+  color: rgba(201, 168, 76, 0.35);
+  border-top: 1px solid rgba(201, 168, 76, 0.1);
+}
+
+/* ── Scroll Reveal ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 640px) {
+  section {
+    padding: 60px 20px;
+  }
+}
