@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { useEffect, useRef, useState, useCallback } from 'react'
 
 export const Route = createFileRoute('/')({
@@ -590,14 +590,12 @@ function AcademieMorphomagie() {
             Notre premier programme <strong>Les Secrets de l'Orthographe</strong> est disponible dès
             maintenant. Venez voir si la Guilde est faite pour vous !
           </p>
-          <a
-            href="https://app.tutorbird.com/Registration/Default.aspx?SchoolID=sch_4X2JG"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to="/exploration"
             className="cta-btn"
           >
             Réserver ma séance découverte
-          </a>
+          </Link>
           <p className="cta-note">academiemorphomagie@gmail.com · Séance découverte offerte gratuitement</p>
         </LangBlock>
         <LangBlock lang="en" current={lang}>
@@ -610,14 +608,12 @@ function AcademieMorphomagie() {
             Our first program <strong>Spelling Secrets</strong> is available now. Come see if the Guild is
             right for you!
           </p>
-          <a
-            href="https://app.tutorbird.com/Registration/Default.aspx?SchoolID=sch_4X2JG"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to="/exploration"
             className="cta-btn"
           >
             Book my Discovery Session
-          </a>
+          </Link>
           <p className="cta-note">academiemorphomagie@gmail.com · Discovery session offered free of charge</p>
         </LangBlock>
       </section>
